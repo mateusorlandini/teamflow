@@ -1,1 +1,131 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'styles/tokens' as *;
+@use 'styles/mixins' as *;
+@use 'styles/material-overrides' as *;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$violet-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--tf-font-family);
+  font-size: var(--tf-text-base);
+  line-height: var(--tf-line-height-normal);
+  color: var(--tf-text-primary);
+  background-color: var(--tf-surface-secondary);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark-theme {
+  color-scheme: dark;
+}
+
+a {
+  color: var(--tf-primary-600);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--tf-border-strong);
+  border-radius: var(--tf-radius-full);
+
+  &:hover {
+    background: var(--tf-text-muted);
+  }
+}
+
+.tf-page-container {
+  padding: var(--tf-space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tf-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--tf-space-6);
+  gap: var(--tf-space-4);
+
+  .tf-page-title {
+    font-size: var(--tf-text-2xl);
+    font-weight: var(--tf-weight-bold);
+    color: var(--tf-text-primary);
+    margin: 0 0 4px;
+    line-height: var(--tf-line-height-tight);
+  }
+
+  .tf-page-subtitle {
+    font-size: var(--tf-text-sm);
+    color: var(--tf-text-secondary);
+    margin: 0;
+  }
+}
+
+.tf-card {
+  @include card-base;
+  padding: var(--tf-space-6);
+}
+
+.tf-section-title {
+  font-size: var(--tf-text-base);
+  font-weight: var(--tf-weight-semibold);
+  color: var(--tf-text-primary);
+  margin: 0 0 var(--tf-space-4);
+}
+
+.tf-divider {
+  border: none;
+  border-top: 1px solid var(--tf-border);
+  margin: var(--tf-space-4) 0;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.4;
+  background: var(--tf-primary-100);
+  border: 2px dashed var(--tf-primary-400);
+  border-radius: var(--tf-radius-md);
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

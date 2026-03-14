@@ -1,0 +1,143 @@
+// ============================================================
+// Angular Material Overrides — TeamFlow Design System
+// ============================================================
+
+// Button overrides
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button {
+  border-radius: var(--tf-radius-md) !important;
+  font-weight: var(--tf-weight-semibold) !important;
+  font-size: var(--tf-text-sm) !important;
+  letter-spacing: 0 !important;
+}
+
+// Card overrides
+.mat-mdc-card {
+  border-radius: var(--tf-radius-lg) !important;
+  border: 1px solid var(--tf-border) !important;
+  box-shadow: var(--tf-shadow-sm) !important;
+}
+
+// Dialog overrides
+.mat-mdc-dialog-container {
+  border-radius: var(--tf-radius-xl) !important;
+}
+
+.mdc-dialog__surface {
+  border-radius: var(--tf-radius-xl) !important;
+}
+
+// Chip overrides
+.mat-mdc-chip {
+  border-radius: var(--tf-radius-full) !important;
+  font-size: var(--tf-text-xs) !important;
+  font-weight: var(--tf-weight-semibold) !important;
+}
+
+// Tooltip
+.mat-mdc-tooltip {
+  font-size: var(--tf-text-xs) !important;
+  background-color: #1e293b !important;
+  border-radius: var(--tf-radius-sm) !important;
+}
+
+// Snackbar
+.mat-mdc-snack-bar-container {
+  border-radius: var(--tf-radius-md) !important;
+
+  &.snack-success .mdc-snackbar__surface {
+    background-color: #065f46 !important;
+  }
+
+  &.snack-error .mdc-snackbar__surface {
+    background-color: #7f1d1d !important;
+  }
+
+  &.snack-info .mdc-snackbar__surface {
+    background-color: #1e3a5f !important;
+  }
+}
+
+// Form fields
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    border-radius: var(--tf-radius-md) !important;
+  }
+}
+
+// Table
+.mat-mdc-table {
+  background: transparent !important;
+
+  .mat-mdc-header-row {
+    background: var(--tf-surface-secondary);
+
+    .mat-mdc-header-cell {
+      font-size: var(--tf-text-xs) !important;
+      font-weight: var(--tf-weight-semibold) !important;
+      color: var(--tf-text-secondary) !important;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom-color: var(--tf-border) !important;
+    }
+  }
+
+  .mat-mdc-row {
+    &:hover {
+      background: var(--tf-surface-secondary) !important;
+    }
+
+    .mat-mdc-cell {
+      border-bottom-color: var(--tf-border) !important;
+      color: var(--tf-text-primary) !important;
+      font-size: var(--tf-text-sm) !important;
+    }
+  }
+}
+
+// Paginator
+.mat-mdc-paginator {
+  background: transparent !important;
+  color: var(--tf-text-secondary) !important;
+  font-size: var(--tf-text-sm) !important;
+}
+
+// Progress bar
+.mat-mdc-progress-bar {
+  border-radius: var(--tf-radius-full) !important;
+  height: 6px !important;
+
+  .mdc-linear-progress__buffer-bar {
+    background-color: var(--tf-surface-tertiary) !important;
+  }
+}
+
+// Badge
+.mat-badge-content {
+  font-size: 10px !important;
+  font-weight: var(--tf-weight-bold) !important;
+}
+
+// Sidenav
+.mat-drawer-container {
+  background: transparent !important;
+}
+
+// Menu
+.mat-mdc-menu-panel {
+  border-radius: var(--tf-radius-lg) !important;
+  border: 1px solid var(--tf-border) !important;
+  box-shadow: var(--tf-shadow-lg) !important;
+}
+
+.mat-mdc-menu-item {
+  font-size: var(--tf-text-sm) !important;
+  border-radius: var(--tf-radius-sm) !important;
+  margin: 2px 6px !important;
+
+  &:hover {
+    background: var(--tf-surface-secondary) !important;
+  }
+}

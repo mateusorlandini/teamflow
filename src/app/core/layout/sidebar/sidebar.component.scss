@@ -1,0 +1,211 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: var(--tf-sidebar-width);
+  background: var(--tf-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  transition: width var(--tf-transition-slow);
+  z-index: var(--tf-z-sticky);
+  overflow: hidden;
+
+  &--collapsed {
+    width: var(--tf-sidebar-collapsed-width);
+
+    .sidebar__section-label {
+      display: none;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--tf-sidebar-border);
+    min-height: var(--tf-topbar-height);
+    gap: 8px;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  &__logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--tf-primary-500);
+    border-radius: 10px;
+    flex-shrink: 0;
+
+    mat-icon {
+      color: #fff;
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--tf-sidebar-text);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background var(--tf-transition-fast), color var(--tf-transition-fast);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__nav {
+    flex: 1;
+    padding: 12px 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar { width: 3px; }
+    &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+  }
+
+  &__section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.3);
+    padding: 8px 10px 4px;
+    white-space: nowrap;
+  }
+
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    color: var(--tf-sidebar-text);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background var(--tf-transition-fast), color var(--tf-transition-fast);
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      text-decoration: none;
+    }
+
+    &--active {
+      background: var(--tf-sidebar-active-bg) !important;
+      color: var(--tf-sidebar-text-active) !important;
+
+      .sidebar__nav-icon {
+        color: var(--tf-primary-400);
+      }
+    }
+  }
+
+  &__nav-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: color var(--tf-transition-fast);
+  }
+
+  &__nav-label {
+    font-size: 13.5px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--tf-sidebar-border);
+    margin: 8px 0;
+  }
+
+  &__footer {
+    padding: 8px 10px 16px;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 4px;
+    cursor: pointer;
+    transition: background var(--tf-transition-fast);
+    overflow: hidden;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  &__user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  &__user-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__user-role {
+    font-size: 11px;
+    color: var(--tf-sidebar-text);
+    white-space: nowrap;
+  }
+}

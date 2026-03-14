@@ -1,0 +1,911 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "name": "Alex Rivera",
+      "email": "admin@teamflow.io",
+      "password": "admin123",
+      "role": "admin",
+      "avatar": "https://api.dicebear.com/9.x/avataaars/svg?seed=Alex",
+      "jobTitle": "Engineering Lead",
+      "department": "Engineering",
+      "teamIds": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "isActive": true,
+      "createdAt": "2024-01-10T08:00:00Z",
+      "lastActiveAt": "2025-03-14T11:30:00Z",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "notifications": {
+          "taskAssigned": true,
+          "taskDeadline": true,
+          "taskComment": true,
+          "taskMention": true,
+          "teamUpdates": true,
+          "emailDigest": false
+        },
+        "dashboardLayout": "comfortable"
+      }
+    },
+    {
+      "id": "u2",
+      "name": "Sara Chen",
+      "email": "manager@teamflow.io",
+      "password": "manager123",
+      "role": "manager",
+      "avatar": "https://api.dicebear.com/9.x/avataaars/svg?seed=Sara",
+      "jobTitle": "Product Manager",
+      "department": "Product",
+      "teamIds": [
+        "t1",
+        "t2"
+      ],
+      "isActive": true,
+      "createdAt": "2024-01-15T08:00:00Z",
+      "lastActiveAt": "2025-03-14T10:00:00Z",
+      "preferences": {
+        "theme": "dark",
+        "language": "en",
+        "notifications": {
+          "taskAssigned": true,
+          "taskDeadline": true,
+          "taskComment": true,
+          "taskMention": true,
+          "teamUpdates": true,
+          "emailDigest": true
+        },
+        "dashboardLayout": "compact"
+      }
+    },
+    {
+      "id": "u3",
+      "name": "Jordan Lee",
+      "email": "member@teamflow.io",
+      "password": "member123",
+      "role": "member",
+      "avatar": "https://api.dicebear.com/9.x/avataaars/svg?seed=Jordan",
+      "jobTitle": "Senior Frontend Developer",
+      "department": "Engineering",
+      "teamIds": [
+        "t1"
+      ],
+      "isActive": true,
+      "createdAt": "2024-02-01T08:00:00Z",
+      "lastActiveAt": "2025-03-14T09:00:00Z",
+      "preferences": {
+        "theme": "system",
+        "language": "en",
+        "notifications": {
+          "taskAssigned": true,
+          "taskDeadline": true,
+          "taskComment": false,
+          "taskMention": true,
+          "teamUpdates": false,
+          "emailDigest": false
+        },
+        "dashboardLayout": "comfortable"
+      }
+    },
+    {
+      "id": "u4",
+      "name": "Maya Patel",
+      "email": "maya@teamflow.io",
+      "password": "maya123",
+      "role": "member",
+      "avatar": "https://api.dicebear.com/9.x/avataaars/svg?seed=Maya",
+      "jobTitle": "UX Designer",
+      "department": "Design",
+      "teamIds": [
+        "t2"
+      ],
+      "isActive": true,
+      "createdAt": "2024-02-10T08:00:00Z",
+      "lastActiveAt": "2025-03-13T17:00:00Z",
+      "preferences": {
+        "theme": "light",
+        "language": "en",
+        "notifications": {
+          "taskAssigned": true,
+          "taskDeadline": true,
+          "taskComment": true,
+          "taskMention": true,
+          "teamUpdates": true,
+          "emailDigest": true
+        },
+        "dashboardLayout": "comfortable"
+      }
+    },
+    {
+      "id": "u5",
+      "name": "Carlos Souza",
+      "email": "carlos@teamflow.io",
+      "password": "carlos123",
+      "role": "member",
+      "avatar": "https://api.dicebear.com/9.x/avataaars/svg?seed=Carlos",
+      "jobTitle": "Backend Developer",
+      "department": "Engineering",
+      "teamIds": [
+        "t1",
+        "t3"
+      ],
+      "isActive": true,
+      "createdAt": "2024-03-01T08:00:00Z",
+      "lastActiveAt": "2025-03-14T08:00:00Z",
+      "preferences": {
+        "theme": "dark",
+        "language": "en",
+        "notifications": {
+          "taskAssigned": true,
+          "taskDeadline": false,
+          "taskComment": false,
+          "taskMention": true,
+          "teamUpdates": true,
+          "emailDigest": false
+        },
+        "dashboardLayout": "compact"
+      }
+    }
+  ],
+  "teams": [
+    {
+      "id": "t1",
+      "name": "Engineering",
+      "description": "Core engineering and development team responsible for building and maintaining the platform.",
+      "avatarColor": "#6366f1",
+      "avatarInitials": "ENG",
+      "ownerId": "u1",
+      "memberIds": [
+        "u1",
+        "u2",
+        "u3",
+        "u5"
+      ],
+      "createdAt": "2024-01-10T08:00:00Z",
+      "updatedAt": "2025-02-20T10:00:00Z",
+      "isArchived": false,
+      "settings": {
+        "allowMembersToCreateTasks": true,
+        "allowMembersToInvite": false,
+        "defaultTaskStatus": "todo",
+        "taskLabelIds": [
+          "l1",
+          "l2",
+          "l3"
+        ]
+      }
+    },
+    {
+      "id": "t2",
+      "name": "Product & Design",
+      "description": "Product management and UX design team driving roadmap and user experience.",
+      "avatarColor": "#ec4899",
+      "avatarInitials": "PD",
+      "ownerId": "u2",
+      "memberIds": [
+        "u1",
+        "u2",
+        "u4"
+      ],
+      "createdAt": "2024-01-15T08:00:00Z",
+      "updatedAt": "2025-02-25T10:00:00Z",
+      "isArchived": false,
+      "settings": {
+        "allowMembersToCreateTasks": true,
+        "allowMembersToInvite": false,
+        "defaultTaskStatus": "backlog",
+        "taskLabelIds": [
+          "l4",
+          "l5"
+        ]
+      }
+    },
+    {
+      "id": "t3",
+      "name": "DevOps & Infrastructure",
+      "description": "Infrastructure, CI/CD pipelines, monitoring and reliability engineering.",
+      "avatarColor": "#14b8a6",
+      "avatarInitials": "DOP",
+      "ownerId": "u1",
+      "memberIds": [
+        "u1",
+        "u5"
+      ],
+      "createdAt": "2024-03-01T08:00:00Z",
+      "updatedAt": "2025-03-01T10:00:00Z",
+      "isArchived": false,
+      "settings": {
+        "allowMembersToCreateTasks": true,
+        "allowMembersToInvite": false,
+        "defaultTaskStatus": "todo",
+        "taskLabelIds": [
+          "l3",
+          "l6"
+        ]
+      }
+    }
+  ],
+  "labels": [
+    {
+      "id": "l1",
+      "name": "Bug",
+      "color": "#ef4444",
+      "teamId": "t1"
+    },
+    {
+      "id": "l2",
+      "name": "Feature",
+      "color": "#6366f1",
+      "teamId": "t1"
+    },
+    {
+      "id": "l3",
+      "name": "Improvement",
+      "color": "#f59e0b",
+      "teamId": "t1"
+    },
+    {
+      "id": "l4",
+      "name": "Research",
+      "color": "#8b5cf6",
+      "teamId": "t2"
+    },
+    {
+      "id": "l5",
+      "name": "Design",
+      "color": "#ec4899",
+      "teamId": "t2"
+    },
+    {
+      "id": "l6",
+      "name": "Infrastructure",
+      "color": "#14b8a6",
+      "teamId": "t3"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "tk1",
+      "title": "Implement OAuth2 login flow",
+      "description": "Set up Google and GitHub OAuth2 authentication using Passport.js. Include token refresh logic and session persistence.",
+      "status": "done",
+      "priority": "high",
+      "assigneeId": "u3",
+      "reporterId": "u1",
+      "teamId": "t1",
+      "labelIds": [
+        "l2"
+      ],
+      "dueDate": "2025-03-01T00:00:00Z",
+      "createdAt": "2025-02-10T09:00:00Z",
+      "updatedAt": "2025-03-01T14:00:00Z",
+      "completedAt": "2025-03-01T14:00:00Z",
+      "estimatedHours": 16,
+      "loggedHours": 14,
+      "position": 1,
+      "checklist": [
+        {
+          "id": "cl1",
+          "text": "Set up Passport.js",
+          "completed": true,
+          "createdAt": "2025-02-10T09:00:00Z"
+        },
+        {
+          "id": "cl2",
+          "text": "Configure Google OAuth",
+          "completed": true,
+          "createdAt": "2025-02-10T09:00:00Z"
+        },
+        {
+          "id": "cl3",
+          "text": "Configure GitHub OAuth",
+          "completed": true,
+          "createdAt": "2025-02-10T09:00:00Z"
+        },
+        {
+          "id": "cl4",
+          "text": "Implement token refresh",
+          "completed": true,
+          "createdAt": "2025-02-10T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "auth",
+        "backend"
+      ]
+    },
+    {
+      "id": "tk2",
+      "title": "Design dashboard layout with metrics cards",
+      "description": "Create high-fidelity Figma mockups for the main dashboard, including KPI cards, charts and activity feed.",
+      "status": "done",
+      "priority": "high",
+      "assigneeId": "u4",
+      "reporterId": "u2",
+      "teamId": "t2",
+      "labelIds": [
+        "l5"
+      ],
+      "dueDate": "2025-02-28T00:00:00Z",
+      "createdAt": "2025-02-05T09:00:00Z",
+      "updatedAt": "2025-02-28T12:00:00Z",
+      "completedAt": "2025-02-28T12:00:00Z",
+      "estimatedHours": 12,
+      "loggedHours": 10,
+      "position": 1,
+      "checklist": [
+        {
+          "id": "cl5",
+          "text": "KPI cards wireframe",
+          "completed": true,
+          "createdAt": "2025-02-05T09:00:00Z"
+        },
+        {
+          "id": "cl6",
+          "text": "Chart components design",
+          "completed": true,
+          "createdAt": "2025-02-05T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "design",
+        "dashboard"
+      ]
+    },
+    {
+      "id": "tk3",
+      "title": "Build Kanban board with drag-and-drop",
+      "description": "Implement a fully interactive Kanban board using Angular CDK DragDrop. Columns: Backlog, Todo, In Progress, In Review, Done.",
+      "status": "in_progress",
+      "priority": "high",
+      "assigneeId": "u3",
+      "reporterId": "u1",
+      "teamId": "t1",
+      "labelIds": [
+        "l2",
+        "l3"
+      ],
+      "dueDate": "2025-03-20T00:00:00Z",
+      "createdAt": "2025-03-01T09:00:00Z",
+      "updatedAt": "2025-03-10T11:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 24,
+      "loggedHours": 10,
+      "position": 1,
+      "checklist": [
+        {
+          "id": "cl7",
+          "text": "Column structure",
+          "completed": true,
+          "createdAt": "2025-03-01T09:00:00Z"
+        },
+        {
+          "id": "cl8",
+          "text": "Card drag between columns",
+          "completed": true,
+          "createdAt": "2025-03-01T09:00:00Z"
+        },
+        {
+          "id": "cl9",
+          "text": "Card reorder within column",
+          "completed": false,
+          "createdAt": "2025-03-01T09:00:00Z"
+        },
+        {
+          "id": "cl10",
+          "text": "Filter toolbar",
+          "completed": false,
+          "createdAt": "2025-03-01T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "frontend",
+        "kanban"
+      ]
+    },
+    {
+      "id": "tk4",
+      "title": "Set up CI/CD pipeline with GitHub Actions",
+      "description": "Configure automated build, test and deploy pipeline. Stages: lint → unit test → build → deploy to staging.",
+      "status": "in_progress",
+      "priority": "critical",
+      "assigneeId": "u5",
+      "reporterId": "u1",
+      "teamId": "t3",
+      "labelIds": [
+        "l6"
+      ],
+      "dueDate": "2025-03-15T00:00:00Z",
+      "createdAt": "2025-03-05T09:00:00Z",
+      "updatedAt": "2025-03-12T09:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 8,
+      "loggedHours": 5,
+      "position": 2,
+      "checklist": [
+        {
+          "id": "cl11",
+          "text": "Create workflow YAML",
+          "completed": true,
+          "createdAt": "2025-03-05T09:00:00Z"
+        },
+        {
+          "id": "cl12",
+          "text": "Configure lint step",
+          "completed": true,
+          "createdAt": "2025-03-05T09:00:00Z"
+        },
+        {
+          "id": "cl13",
+          "text": "Configure test step",
+          "completed": false,
+          "createdAt": "2025-03-05T09:00:00Z"
+        },
+        {
+          "id": "cl14",
+          "text": "Configure deploy step",
+          "completed": false,
+          "createdAt": "2025-03-05T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "devops",
+        "ci-cd"
+      ]
+    },
+    {
+      "id": "tk5",
+      "title": "Implement real-time notifications",
+      "description": "Use WebSocket (Socket.io) to push notifications to connected clients. Notification types: task assignment, deadline, comment, mention.",
+      "status": "backlog",
+      "priority": "medium",
+      "assigneeId": "u3",
+      "reporterId": "u2",
+      "teamId": "t1",
+      "labelIds": [
+        "l2"
+      ],
+      "dueDate": "2025-03-25T00:00:00Z",
+      "createdAt": "2025-03-08T09:00:00Z",
+      "updatedAt": "2026-03-14T16:17:22.510Z",
+      "completedAt": null,
+      "estimatedHours": 12,
+      "loggedHours": 0,
+      "position": 1,
+      "checklist": [
+        {
+          "id": "cl15",
+          "text": "WebSocket server setup",
+          "completed": false,
+          "createdAt": "2025-03-08T09:00:00Z"
+        },
+        {
+          "id": "cl16",
+          "text": "Angular WebSocket service",
+          "completed": false,
+          "createdAt": "2025-03-08T09:00:00Z"
+        },
+        {
+          "id": "cl17",
+          "text": "Notification UI panel",
+          "completed": false,
+          "createdAt": "2025-03-08T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "frontend",
+        "backend",
+        "real-time"
+      ]
+    },
+    {
+      "id": "tk6",
+      "title": "User profile & preferences page",
+      "description": "Build a profile settings page where users can update their name, bio, avatar, notification preferences and theme.",
+      "status": "todo",
+      "priority": "low",
+      "assigneeId": "u4",
+      "reporterId": "u2",
+      "teamId": "t2",
+      "labelIds": [
+        "l5"
+      ],
+      "dueDate": "2025-03-28T00:00:00Z",
+      "createdAt": "2025-03-09T09:00:00Z",
+      "updatedAt": "2025-03-09T09:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 8,
+      "loggedHours": 0,
+      "position": 2,
+      "checklist": [],
+      "attachments": [],
+      "tags": [
+        "frontend",
+        "profile"
+      ]
+    },
+    {
+      "id": "tk7",
+      "title": "Write unit tests for auth service",
+      "description": "Achieve 80%+ coverage for the authentication service. Include positive and negative test cases for login, token refresh and logout.",
+      "status": "todo",
+      "priority": "medium",
+      "assigneeId": "u3",
+      "reporterId": "u1",
+      "teamId": "t1",
+      "labelIds": [
+        "l3"
+      ],
+      "dueDate": "2025-04-05T00:00:00Z",
+      "createdAt": "2025-03-10T09:00:00Z",
+      "updatedAt": "2026-03-14T16:17:20.877Z",
+      "completedAt": null,
+      "estimatedHours": 6,
+      "loggedHours": 0,
+      "position": 1,
+      "checklist": [],
+      "attachments": [],
+      "tags": [
+        "testing",
+        "auth"
+      ]
+    },
+    {
+      "id": "tk8",
+      "title": "Database schema migration – v2",
+      "description": "Apply schema changes to production PostgreSQL database. Includes new columns for task checklist and comment reactions tables.",
+      "status": "backlog",
+      "priority": "high",
+      "assigneeId": "u5",
+      "reporterId": "u1",
+      "teamId": "t3",
+      "labelIds": [
+        "l6"
+      ],
+      "dueDate": "2025-04-10T00:00:00Z",
+      "createdAt": "2025-03-11T09:00:00Z",
+      "updatedAt": "2025-03-11T09:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 4,
+      "loggedHours": 0,
+      "position": 2,
+      "checklist": [],
+      "attachments": [],
+      "tags": [
+        "database",
+        "backend"
+      ]
+    },
+    {
+      "id": "tk9",
+      "title": "Advanced task table with export",
+      "description": "Build a data table with server-side sorting, filtering, pagination and CSV export functionality.",
+      "status": "in_review",
+      "priority": "medium",
+      "assigneeId": "u3",
+      "reporterId": "u2",
+      "teamId": "t1",
+      "labelIds": [
+        "l2",
+        "l3"
+      ],
+      "dueDate": "2025-03-18T00:00:00Z",
+      "createdAt": "2025-03-02T09:00:00Z",
+      "updatedAt": "2025-03-13T15:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 16,
+      "loggedHours": 14,
+      "position": 1,
+      "checklist": [
+        {
+          "id": "cl18",
+          "text": "Table component with pagination",
+          "completed": true,
+          "createdAt": "2025-03-02T09:00:00Z"
+        },
+        {
+          "id": "cl19",
+          "text": "Sort and filter logic",
+          "completed": true,
+          "createdAt": "2025-03-02T09:00:00Z"
+        },
+        {
+          "id": "cl20",
+          "text": "CSV export service",
+          "completed": true,
+          "createdAt": "2025-03-02T09:00:00Z"
+        },
+        {
+          "id": "cl21",
+          "text": "Mobile responsiveness",
+          "completed": false,
+          "createdAt": "2025-03-02T09:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "frontend",
+        "table"
+      ]
+    },
+    {
+      "id": "tk10",
+      "title": "Fix memory leak in notification polling",
+      "description": "Subscription not properly disposed on component destroy causing memory leak in the notification service.",
+      "status": "in_progress",
+      "priority": "critical",
+      "assigneeId": "u5",
+      "reporterId": "u3",
+      "teamId": "t1",
+      "labelIds": [
+        "l1"
+      ],
+      "dueDate": "2025-03-14T00:00:00Z",
+      "createdAt": "2025-03-12T14:00:00Z",
+      "updatedAt": "2025-03-13T09:00:00Z",
+      "completedAt": null,
+      "estimatedHours": 2,
+      "loggedHours": 1,
+      "position": 3,
+      "checklist": [
+        {
+          "id": "cl22",
+          "text": "Identify leak source",
+          "completed": true,
+          "createdAt": "2025-03-12T14:00:00Z"
+        },
+        {
+          "id": "cl23",
+          "text": "Fix subscription cleanup",
+          "completed": false,
+          "createdAt": "2025-03-12T14:00:00Z"
+        }
+      ],
+      "attachments": [],
+      "tags": [
+        "bug",
+        "performance"
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": "cm1",
+      "taskId": "tk3",
+      "authorId": "u1",
+      "content": "Great progress on the drag-and-drop! Let's make sure we handle the edge case where a column is empty before we close this.",
+      "createdAt": "2025-03-10T10:00:00Z",
+      "updatedAt": "2025-03-10T10:00:00Z",
+      "mentions": [
+        "u3"
+      ],
+      "reactions": [
+        {
+          "emoji": "👍",
+          "userIds": [
+            "u3",
+            "u2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cm2",
+      "taskId": "tk3",
+      "authorId": "u3",
+      "content": "@alex Sure! I'll add the empty-column placeholder UI. Estimated 2 more hours.",
+      "createdAt": "2025-03-10T11:00:00Z",
+      "updatedAt": "2025-03-10T11:00:00Z",
+      "mentions": [
+        "u1"
+      ],
+      "reactions": []
+    },
+    {
+      "id": "cm3",
+      "taskId": "tk4",
+      "authorId": "u2",
+      "content": "This is blocking the staging deployment. Let's prioritize.",
+      "createdAt": "2025-03-12T09:30:00Z",
+      "updatedAt": "2025-03-12T09:30:00Z",
+      "mentions": [
+        "u5"
+      ],
+      "reactions": [
+        {
+          "emoji": "🔥",
+          "userIds": [
+            "u1"
+          ]
+        }
+      ]
+    }
+  ],
+  "activity": [
+    {
+      "id": "a1",
+      "taskId": "tk3",
+      "userId": "u1",
+      "action": "created",
+      "field": null,
+      "oldValue": null,
+      "newValue": null,
+      "createdAt": "2025-03-01T09:00:00Z"
+    },
+    {
+      "id": "a2",
+      "taskId": "tk3",
+      "userId": "u1",
+      "action": "assigned",
+      "field": "assignee",
+      "oldValue": null,
+      "newValue": "u3",
+      "createdAt": "2025-03-01T09:05:00Z"
+    },
+    {
+      "id": "a3",
+      "taskId": "tk3",
+      "userId": "u3",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "todo",
+      "newValue": "in_progress",
+      "createdAt": "2025-03-05T09:00:00Z"
+    },
+    {
+      "id": "a4",
+      "taskId": "tk4",
+      "userId": "u5",
+      "action": "status_changed",
+      "field": "status",
+      "oldValue": "todo",
+      "newValue": "in_progress",
+      "createdAt": "2025-03-07T09:00:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "n1",
+      "type": "task_assigned",
+      "title": "New task assigned to you",
+      "message": "Alex Rivera assigned you to \"Build Kanban board with drag-and-drop\"",
+      "recipientId": "u3",
+      "actorId": "u1",
+      "resourceType": "task",
+      "resourceId": "tk3",
+      "isRead": false,
+      "createdAt": "2025-03-01T09:05:00Z",
+      "readAt": null
+    },
+    {
+      "id": "n2",
+      "type": "task_comment",
+      "title": "New comment on your task",
+      "message": "Alex Rivera commented on \"Build Kanban board with drag-and-drop\"",
+      "recipientId": "u3",
+      "actorId": "u1",
+      "resourceType": "task",
+      "resourceId": "tk3",
+      "isRead": false,
+      "createdAt": "2025-03-10T10:00:00Z",
+      "readAt": null
+    },
+    {
+      "id": "n3",
+      "type": "task_deadline",
+      "title": "Task deadline approaching",
+      "message": "\"Fix memory leak in notification polling\" is due today!",
+      "recipientId": "u5",
+      "actorId": null,
+      "resourceType": "task",
+      "resourceId": "tk10",
+      "isRead": false,
+      "createdAt": "2025-03-14T08:00:00Z",
+      "readAt": null
+    },
+    {
+      "id": "n4",
+      "type": "task_mention",
+      "title": "You were mentioned in a comment",
+      "message": "Jordan Lee mentioned you in \"Build Kanban board with drag-and-drop\"",
+      "recipientId": "u1",
+      "actorId": "u3",
+      "resourceType": "task",
+      "resourceId": "tk3",
+      "isRead": true,
+      "createdAt": "2025-03-10T11:00:00Z",
+      "readAt": "2025-03-10T12:00:00Z"
+    },
+    {
+      "id": "n5",
+      "type": "task_assigned",
+      "title": "New task assigned to you",
+      "message": "Sara Chen assigned you to \"User profile & preferences page\"",
+      "recipientId": "u4",
+      "actorId": "u2",
+      "resourceType": "task",
+      "resourceId": "tk6",
+      "isRead": false,
+      "createdAt": "2025-03-09T09:05:00Z",
+      "readAt": null
+    }
+  ],
+  "dashboardMetrics": {
+    "totalTasks": 10,
+    "completedTasks": 2,
+    "inProgressTasks": 3,
+    "overdueTasks": 1,
+    "totalTeams": 3,
+    "activeMembers": 5,
+    "completionRate": 20,
+    "weeklyTrend": 15
+  },
+  "taskTrend": [
+    {
+      "date": "2025-03-08",
+      "completed": 1,
+      "created": 3
+    },
+    {
+      "date": "2025-03-09",
+      "completed": 0,
+      "created": 2
+    },
+    {
+      "date": "2025-03-10",
+      "completed": 1,
+      "created": 1
+    },
+    {
+      "date": "2025-03-11",
+      "completed": 0,
+      "created": 2
+    },
+    {
+      "date": "2025-03-12",
+      "completed": 0,
+      "created": 1
+    },
+    {
+      "date": "2025-03-13",
+      "completed": 1,
+      "created": 0
+    },
+    {
+      "date": "2025-03-14",
+      "completed": 0,
+      "created": 1
+    }
+  ],
+  "teamProductivity": [
+    {
+      "teamId": "t1",
+      "teamName": "Engineering",
+      "completedTasks": 3,
+      "totalTasks": 7,
+      "completionRate": 43
+    },
+    {
+      "teamId": "t2",
+      "teamName": "Product & Design",
+      "completedTasks": 2,
+      "totalTasks": 3,
+      "completionRate": 67
+    },
+    {
+      "teamId": "t3",
+      "teamName": "DevOps & Infrastructure",
+      "completedTasks": 0,
+      "totalTasks": 2,
+      "completionRate": 0
+    }
+  ]
+}

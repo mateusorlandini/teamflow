@@ -1,0 +1,106 @@
+// ============================================================
+// TeamFlow Mixins & Utilities
+// ============================================================
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin card-base {
+  background: var(--tf-surface);
+  border: 1px solid var(--tf-border);
+  border-radius: var(--tf-radius-lg);
+  box-shadow: var(--tf-shadow-sm);
+}
+
+@mixin transition-base {
+  transition: all var(--tf-transition-base);
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--tf-primary-500);
+    outline-offset: 2px;
+  }
+}
+
+@mixin surface-hover {
+  &:hover {
+    background: var(--tf-surface-secondary);
+    transition: background var(--tf-transition-fast);
+  }
+}
+
+@mixin badge-base($bg, $color) {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tf-radius-full);
+  font-size: var(--tf-text-xs);
+  font-weight: var(--tf-weight-semibold);
+  background-color: $bg;
+  color: $color;
+  white-space: nowrap;
+}
+
+@mixin skeleton-animation {
+  background: linear-gradient(
+    90deg,
+    var(--tf-surface-secondary) 25%,
+    var(--tf-surface-tertiary) 50%,
+    var(--tf-surface-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// Responsive breakpoints
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: calc(#{map-get($breakpoints, $breakpoint)} - 1px)) {
+      @content;
+    }
+  }
+}

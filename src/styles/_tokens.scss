@@ -1,0 +1,153 @@
+// ============================================================
+// TeamFlow Design Tokens
+// ============================================================
+
+// Brand Colors
+:root {
+  // Primary - Indigo
+  --tf-primary-50: #eef2ff;
+  --tf-primary-100: #e0e7ff;
+  --tf-primary-200: #c7d2fe;
+  --tf-primary-300: #a5b4fc;
+  --tf-primary-400: #818cf8;
+  --tf-primary-500: #6366f1;
+  --tf-primary-600: #4f46e5;
+  --tf-primary-700: #4338ca;
+  --tf-primary-800: #3730a3;
+  --tf-primary-900: #312e81;
+
+  // Accent - Violet
+  --tf-accent-400: #a78bfa;
+  --tf-accent-500: #8b5cf6;
+  --tf-accent-600: #7c3aed;
+
+  // Success - Emerald
+  --tf-success-50: #ecfdf5;
+  --tf-success-500: #10b981;
+  --tf-success-600: #059669;
+
+  // Warning - Amber
+  --tf-warning-50: #fffbeb;
+  --tf-warning-500: #f59e0b;
+  --tf-warning-600: #d97706;
+
+  // Danger - Red
+  --tf-danger-50: #fef2f2;
+  --tf-danger-500: #ef4444;
+  --tf-danger-600: #dc2626;
+
+  // Info - Blue
+  --tf-info-50: #eff6ff;
+  --tf-info-500: #3b82f6;
+  --tf-info-600: #2563eb;
+
+  // Neutral (Light mode)
+  --tf-surface: #ffffff;
+  --tf-surface-secondary: #f8fafc;
+  --tf-surface-tertiary: #f1f5f9;
+  --tf-border: #e2e8f0;
+  --tf-border-strong: #cbd5e1;
+  --tf-text-primary: #0f172a;
+  --tf-text-secondary: #475569;
+  --tf-text-muted: #94a3b8;
+  --tf-text-on-primary: #ffffff;
+
+  // Sidebar
+  --tf-sidebar-bg: #0f172a;
+  --tf-sidebar-text: #94a3b8;
+  --tf-sidebar-text-active: #ffffff;
+  --tf-sidebar-active-bg: rgba(99, 102, 241, 0.15);
+  --tf-sidebar-border: rgba(255,255,255,0.06);
+  --tf-sidebar-width: 260px;
+  --tf-sidebar-collapsed-width: 72px;
+
+  // Topbar
+  --tf-topbar-height: 64px;
+  --tf-topbar-bg: #ffffff;
+  --tf-topbar-border: #e2e8f0;
+
+  // Shadows
+  --tf-shadow-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --tf-shadow-sm: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --tf-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --tf-shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  --tf-shadow-xl: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);
+
+  // Border radius
+  --tf-radius-xs: 4px;
+  --tf-radius-sm: 6px;
+  --tf-radius-md: 8px;
+  --tf-radius-lg: 12px;
+  --tf-radius-xl: 16px;
+  --tf-radius-2xl: 24px;
+  --tf-radius-full: 9999px;
+
+  // Spacing
+  --tf-space-1: 4px;
+  --tf-space-2: 8px;
+  --tf-space-3: 12px;
+  --tf-space-4: 16px;
+  --tf-space-5: 20px;
+  --tf-space-6: 24px;
+  --tf-space-8: 32px;
+  --tf-space-10: 40px;
+  --tf-space-12: 48px;
+  --tf-space-16: 64px;
+
+  // Typography
+  --tf-font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  --tf-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --tf-text-xs: 11px;
+  --tf-text-sm: 13px;
+  --tf-text-base: 14px;
+  --tf-text-md: 15px;
+  --tf-text-lg: 17px;
+  --tf-text-xl: 20px;
+  --tf-text-2xl: 24px;
+  --tf-text-3xl: 30px;
+  --tf-text-4xl: 36px;
+
+  --tf-weight-normal: 400;
+  --tf-weight-medium: 500;
+  --tf-weight-semibold: 600;
+  --tf-weight-bold: 700;
+
+  --tf-line-height-tight: 1.25;
+  --tf-line-height-normal: 1.5;
+  --tf-line-height-relaxed: 1.75;
+
+  // Transitions
+  --tf-transition-fast: 120ms ease;
+  --tf-transition-base: 200ms ease;
+  --tf-transition-slow: 350ms ease;
+
+  // Z-index layers
+  --tf-z-dropdown: 1000;
+  --tf-z-sticky: 1010;
+  --tf-z-overlay: 1020;
+  --tf-z-modal: 1030;
+  --tf-z-toast: 1040;
+  --tf-z-tooltip: 1050;
+}
+
+// Dark mode overrides
+.dark-theme {
+  color-scheme: dark;
+
+  --tf-surface: #0f172a;
+  --tf-surface-secondary: #1e293b;
+  --tf-surface-tertiary: #334155;
+  --tf-border: #334155;
+  --tf-border-strong: #475569;
+  --tf-text-primary: #f8fafc;
+  --tf-text-secondary: #cbd5e1;
+  --tf-text-muted: #64748b;
+
+  --tf-topbar-bg: #1e293b;
+  --tf-topbar-border: #334155;
+
+  --tf-shadow-sm: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  --tf-shadow-md: 0 4px 6px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.25);
+  --tf-shadow-lg: 0 10px 15px rgba(0,0,0,0.4), 0 4px 6px rgba(0,0,0,0.2);
+}

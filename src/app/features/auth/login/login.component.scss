@@ -1,0 +1,132 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__header {
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--tf-text-primary);
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: var(--tf-text-secondary);
+    margin: 0;
+  }
+
+  &__demo-accounts {
+    background: var(--tf-surface-secondary);
+    border: 1px solid var(--tf-border);
+    border-radius: var(--tf-radius-md);
+    padding: 14px;
+  }
+
+  &__demo-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tf-text-muted);
+    margin: 0 0 10px;
+  }
+
+  &__demo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__demo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border: 1px solid var(--tf-border);
+    border-radius: var(--tf-radius-sm);
+    background: var(--tf-surface);
+    cursor: pointer;
+    transition: border-color var(--tf-transition-fast), box-shadow var(--tf-transition-fast);
+    width: 100%;
+
+    &:hover {
+      border-color: var(--tf-primary-400);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+  }
+
+  &__demo-role {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tf-primary-600);
+    background: var(--tf-primary-50);
+    padding: 2px 8px;
+    border-radius: var(--tf-radius-full);
+  }
+
+  &__demo-email {
+    font-size: 12px;
+    color: var(--tf-text-secondary);
+    font-family: var(--tf-font-mono);
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  &__forgot {
+    text-align: right;
+    margin: -8px 0 4px;
+
+    a {
+      font-size: 13px;
+      color: var(--tf-primary-600);
+      font-weight: 500;
+    }
+  }
+
+  &__error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--tf-danger-50);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: var(--tf-radius-md);
+    color: var(--tf-danger-600);
+    font-size: 13px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__submit {
+    height: 44px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    width: 100%;
+    margin-top: 4px;
+    border-radius: var(--tf-radius-md) !important;
+    background: var(--tf-primary-600) !important;
+
+    mat-spinner {
+      margin: auto;
+    }
+  }
+}
