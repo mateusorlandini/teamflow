@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { TaskStatus, TASK_STATUS_COLORS, TASK_STATUS_LABELS } from '../../../domain/enums/task-status.enum';
+import { TaskStatus, TASK_STATUS_COLORS, TASK_STATUS_LABELS } from '../../../domain/enums';
 
 @Component({
   selector: 'tf-status-badge',

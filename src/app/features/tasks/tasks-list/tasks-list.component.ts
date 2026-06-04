@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, effect, inject, signal, computed, viewChild } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,10 +18,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { TaskService } from '../../../data/services/task.service';
 import { UserService } from '../../../data/services/user.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { Task } from '../../../domain/models/task.model';
-import { TaskStatus, TASK_STATUS_LABELS } from '../../../domain/enums/task-status.enum';
-import { TaskPriority, TASK_PRIORITY_LABELS } from '../../../domain/enums/task-priority.enum';
-import { User } from '../../../domain/models/user.model';
+import { Task, User } from '../../../domain/models';
+import { TaskStatus, TASK_STATUS_LABELS, TaskPriority, TASK_PRIORITY_LABELS } from '../../../domain/enums';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { PriorityBadgeComponent } from '../../../shared/components/priority-badge/priority-badge.component';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
@@ -258,7 +256,6 @@ import { MatDialog } from '@angular/material/dialog';
             [pageSize]="10"
             [pageSizeOptions]="[5, 10, 25, 50]"
             showFirstLastButtons
-            (page)="onPage($event)"
             aria-label="Tasks pagination"
           />
         }
@@ -290,6 +287,13 @@ export class TasksListComponent implements OnInit {
   readonly priorityOptions = Object.entries(TASK_PRIORITY_LABELS).map(([value, label]) => ({ value, label }));
 
   dataSource = new MatTableDataSource<Task>([]);
+
+  private readonly paginator = viewChild(MatPaginator);
+  // Connect the paginator once it is rendered (it lives inside an `@if`).
+  private readonly bindPaginator = effect(() => {
+    const paginator = this.paginator();
+    if (paginator) this.dataSource.paginator = paginator;
+  });
 
   readonly filteredTasks = computed(() => {
     let tasks = this.allTasks();
@@ -332,15 +336,14 @@ export class TasksListComponent implements OnInit {
   onSort(sort: Sort): void {
     const data = [...this.filteredTasks()];
     if (!sort.active || sort.direction === '') { this.dataSource.data = data; return; }
-    this.dataSource.data = data.sort((a: any, b: any) => {
-      const isAsc = sort.direction === 'asc';
-      const va = a[sort.active] ?? '';
-      const vb = b[sort.active] ?? '';
-      return (va < vb ? -1 : va > vb ? 1 : 0) * (isAsc ? 1 : -1);
+    const isAsc = sort.direction === 'asc';
+    const key = sort.active as keyof Task;
+    this.dataSource.data = data.sort((a, b) => {
+      const va = String(a[key] ?? '');
+      const vb = String(b[key] ?? '');
+      return va.localeCompare(vb) * (isAsc ? 1 : -1);
     });
   }
-
-  onPage(_: PageEvent): void {}
 
   getUserById(id: string | null): User | undefined {
     return id ? this.users().find((u) => u.id === id) : undefined;
@@ -353,7 +356,7 @@ export class TasksListComponent implements OnInit {
   isSelected(id: string): boolean { return this.selectedIds().has(id); }
   toggleSelect(id: string): void {
     const set = new Set(this.selectedIds());
-    set.has(id) ? set.delete(id) : set.add(id);
+    if (set.has(id)) set.delete(id); else set.add(id);
     this.selectedIds.set(set);
   }
   toggleAll(checked: boolean): void {

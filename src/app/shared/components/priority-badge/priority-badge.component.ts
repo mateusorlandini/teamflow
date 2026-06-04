@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TaskPriority, TASK_PRIORITY_COLORS, TASK_PRIORITY_ICONS, TASK_PRIORITY_LABELS } from '../../../domain/enums/task-priority.enum';
+import { TaskPriority, TASK_PRIORITY_COLORS, TASK_PRIORITY_ICONS, TASK_PRIORITY_LABELS } from '../../../domain/enums';
 
 @Component({
   selector: 'tf-priority-badge',

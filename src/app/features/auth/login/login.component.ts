@@ -137,7 +137,7 @@ export class LoginComponent {
     { role: 'Member', email: 'member@teamflow.io', password: 'member123' },
   ];
 
-  readonly form = this.fb.group({
+  readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
@@ -152,7 +152,7 @@ export class LoginComponent {
       return;
     }
     const { email, password } = this.form.getRawValue();
-    this.auth.login({ email: email!, password: password! }).subscribe({
+    this.auth.login({ email, password }).subscribe({
       next: () => this.router.navigate(['/dashboard']),
     });
   }

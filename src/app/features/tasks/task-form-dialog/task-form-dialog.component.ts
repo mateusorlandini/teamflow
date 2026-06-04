@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,10 +12,8 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { TaskService } from '../../../data/services/task.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../../../core/auth/services/auth.service';
-import { Task } from '../../../domain/models/task.model';
-import { User } from '../../../domain/models/user.model';
-import { TaskStatus, TASK_STATUS_LABELS } from '../../../domain/enums/task-status.enum';
-import { TaskPriority, TASK_PRIORITY_LABELS } from '../../../domain/enums/task-priority.enum';
+import { CreateTaskPayload, Task, User } from '../../../domain/models';
+import { TaskStatus, TASK_STATUS_LABELS, TaskPriority, TASK_PRIORITY_LABELS } from '../../../domain/enums';
 
 @Component({
   selector: 'tf-task-form-dialog',
@@ -140,6 +138,7 @@ export class TaskFormDialogComponent implements OnInit {
   private readonly toast = inject(ToastService);
   private readonly auth = inject(AuthService);
   readonly dialogRef = inject(MatDialogRef<TaskFormDialogComponent>);
+  readonly data = inject<{ task: Task | null; users: User[] }>(MAT_DIALOG_DATA);
 
   isSaving = false;
 
@@ -148,7 +147,7 @@ export class TaskFormDialogComponent implements OnInit {
 
   get isEdit(): boolean { return !!this.data.task; }
 
-  readonly form = this.fb.group({
+  readonly form = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(3)]],
     description: [''],
     status: [TaskStatus.Todo, Validators.required],
@@ -157,8 +156,6 @@ export class TaskFormDialogComponent implements OnInit {
     dueDate: [null as Date | null],
     estimatedHours: [null as number | null],
   });
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { task: Task | null; users: User[] }) {}
 
   ngOnInit(): void {
     if (this.data.task) {
@@ -171,21 +168,24 @@ export class TaskFormDialogComponent implements OnInit {
 
   onSave(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    const user = this.auth.currentUser();
+    if (!user) return;
     this.isSaving = true;
     const value = this.form.getRawValue();
-    const payload = {
+    const existing = this.data.task;
+    const payload: CreateTaskPayload = {
       ...value,
-      dueDate: value.dueDate ? (value.dueDate as Date).toISOString() : null,
-      teamId: this.data.task?.teamId ?? 't1',
-      reporterId: this.auth.currentUser()!.id,
-      labelIds: this.data.task?.labelIds ?? [],
-      checklist: this.data.task?.checklist ?? [],
-      attachments: this.data.task?.attachments ?? [],
-      tags: this.data.task?.tags ?? [],
-    } as any;
+      dueDate: value.dueDate ? value.dueDate.toISOString() : null,
+      teamId: existing?.teamId ?? 't1',
+      reporterId: user.id,
+      labelIds: existing?.labelIds ?? [],
+      checklist: existing?.checklist ?? [],
+      attachments: existing?.attachments ?? [],
+      tags: existing?.tags ?? [],
+    };
 
-    const op$ = this.isEdit
-      ? this.taskService.update(this.data.task!.id, payload)
+    const op$ = existing
+      ? this.taskService.update(existing.id, payload)
       : this.taskService.create(payload);
 
     op$.subscribe({

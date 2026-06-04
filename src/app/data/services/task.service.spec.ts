@@ -3,9 +3,8 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { TaskService } from './task.service';
-import { TaskStatus } from '../../domain/enums/task-status.enum';
-import { TaskPriority } from '../../domain/enums/task-priority.enum';
-import { Task } from '../../domain/models/task.model';
+import { TaskStatus, TaskPriority } from '../../domain/enums';
+import { Task } from '../../domain/models';
 
 const API = 'http://localhost:3001';
 
@@ -31,6 +30,7 @@ const mockTask: Task = {
   position: 0,
   createdAt: '2026-03-01T00:00:00.000Z',
   updatedAt: '2026-03-10T00:00:00.000Z',
+  completedAt: null,
 };
 
 describe('TaskService', () => {
@@ -148,12 +148,8 @@ describe('TaskService', () => {
     it('should combine task, comments and activity in a single observable', async () => {
       const p = lastValueFrom(service.getWithDetails('task-1'));
       httpMock.expectOne(`${API}/tasks/task-1`).flush(mockTask);
-      httpMock
-        .expectOne((r) => r.url === `${API}/comments` && r.url.includes('taskId=task-1'))
-        .flush([]);
-      httpMock
-        .expectOne((r) => r.url === `${API}/activity` && r.url.includes('taskId=task-1'))
-        .flush([]);
+      httpMock.expectOne(`${API}/comments?taskId=task-1`).flush([]);
+      httpMock.expectOne(`${API}/activity?taskId=task-1`).flush([]);
       const { task, comments, activity } = await p;
       expect(task.id).toBe('task-1');
       expect(comments).toEqual([]);

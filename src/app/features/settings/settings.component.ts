@@ -7,8 +7,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../core/auth/services/auth.service';
 import { ThemeService } from '../../core/services/theme.service';
-import { USER_ROLE_LABELS } from '../../domain/enums/user-role.enum';
-import { ROLE_PERMISSIONS } from '../../domain/models/auth.model';
+import { USER_ROLE_LABELS } from '../../domain/enums';
+import { ROLE_PERMISSIONS } from '../../domain/models';
 
 @Component({
   selector: 'tf-settings',

@@ -7,9 +7,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TeamService } from '../../../data/services/team.service';
 import { TaskService } from '../../../data/services/task.service';
-import { Team, TeamMetrics } from '../../../domain/models/team.model';
-import { User } from '../../../domain/models/user.model';
-import { Task } from '../../../domain/models/task.model';
+import { Team, TeamMetrics, User, Task } from '../../../domain/models';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { PriorityBadgeComponent } from '../../../shared/components/priority-badge/priority-badge.component';
@@ -159,7 +157,11 @@ export class TeamDetailComponent implements OnInit {
   readonly metrics = signal<TeamMetrics | null>(null);
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) {
+      this.isLoading.set(false);
+      return;
+    }
     forkJoin({
       team: this.teamService.getById(id),
       tasks: this.taskService.getAll({ teamId: id }),

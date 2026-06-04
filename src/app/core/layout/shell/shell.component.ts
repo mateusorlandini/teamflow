@@ -4,12 +4,11 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TopbarComponent } from "../topbar/topbar.component";
 import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'tf-shell',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, TopbarComponent],
+  imports: [RouterOutlet, SidebarComponent, TopbarComponent],
   template: `
     <div class="shell" [class.sidebar-collapsed]="sidebarCollapsed()">
       <tf-sidebar

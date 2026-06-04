@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../auth/services/auth.service';
 import { NotificationService } from '../../services/notification.service';
 import { ThemeService } from '../../services/theme.service';
-import { NotificationType, NOTIFICATION_TYPE_ICONS } from '../../../domain/enums/notification-type.enum';
+import { NotificationType, NOTIFICATION_TYPE_ICONS } from '../../../domain/enums';
 
 @Component({
   selector: 'tf-topbar',
@@ -63,7 +63,7 @@ import { NotificationType, NOTIFICATION_TYPE_ICONS } from '../../../domain/enums
         </button>
 
         <mat-menu #notifMenu="matMenu" class="notif-menu" xPosition="before">
-          <div class="notif-panel" (click)="$event.stopPropagation()">
+          <div class="notif-panel">
             <div class="notif-panel__header">
               <span class="notif-panel__title">Notifications</span>
               @if (notifService.hasUnread()) {
@@ -147,7 +147,7 @@ import { NotificationType, NOTIFICATION_TYPE_ICONS } from '../../../domain/enums
   styleUrl: './topbar.component.scss',
 })
 export class TopbarComponent {
-  @Output() toggleSidebar = new EventEmitter<void>();
+  readonly toggleSidebar = output<void>();
 
   readonly auth = inject(AuthService);
   readonly notifService = inject(NotificationService);

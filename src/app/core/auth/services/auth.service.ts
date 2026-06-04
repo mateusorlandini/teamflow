@@ -3,9 +3,12 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import {  AuthUser, LoginPayload, ROLE_PERMISSIONS, PermissionAction, PermissionResource } from '../../../domain/models/auth.model';
-import { UserRole } from '../../../domain/enums/user-role.enum';
+import { AuthUser, LoginPayload, ROLE_PERMISSIONS, PermissionAction, PermissionResource, User } from '../../../domain/models';
+import { UserRole } from '../../../domain/enums';
 import { environment } from '../../../../environments/environment';
+
+/** Mock `/users` records carry a plaintext password the `User` model omits. */
+type UserRecord = User & { password: string };
 
 const TOKEN_KEY = 'tf_access_token';
 const USER_KEY = 'tf_user';
@@ -32,7 +35,7 @@ export class AuthService {
     this._isLoading.set(true);
     this._authError.set(null);
 
-    return this.http.get<any[]>(`${environment.apiUrl}/users`).pipe(
+    return this.http.get<UserRecord[]>(`${environment.apiUrl}/users`).pipe(
       map((users) => {
         const user = users.find(
           (u) => u.email === payload.email && u.password === payload.password,

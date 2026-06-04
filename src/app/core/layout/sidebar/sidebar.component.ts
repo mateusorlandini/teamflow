@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -16,31 +16,33 @@ interface NavItem {
 @Component({
   selector: 'tf-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatTooltipModule],
+  imports: [TitleCasePipe, RouterLink, RouterLinkActive, MatIconModule, MatTooltipModule],
   template: `
-    <aside class="sidebar" [class.sidebar--collapsed]="collapsed" role="navigation" aria-label="Main navigation">
+    <aside class="sidebar" [class.sidebar--collapsed]="collapsed()" role="navigation" aria-label="Main navigation">
       <div class="sidebar__header">
         <div class="sidebar__logo">
           <div class="sidebar__logo-icon">
             <mat-icon>workspaces</mat-icon>
           </div>
-          @if (!collapsed) {
+          @if (!collapsed()) {
             <span class="sidebar__logo-text">TeamFlow</span>
           }
         </div>
         <button
           class="sidebar__toggle"
           (click)="toggleCollapse.emit()"
-          [matTooltip]="collapsed ? 'Expand sidebar' : 'Collapse sidebar'"
+          [matTooltip]="collapsed() ? 'Expand sidebar' : 'Collapse sidebar'"
           matTooltipPosition="right"
           aria-label="Toggle sidebar"
         >
-          <mat-icon>{{ collapsed ? 'chevron_right' : 'chevron_left' }}</mat-icon>
+          <mat-icon>{{ collapsed() ? 'chevron_right' : 'chevron_left' }}</mat-icon>
         </button>
       </div>
 
       <nav class="sidebar__nav">
-        <div class="sidebar__section-label" *ngIf="!collapsed">MAIN</div>
+        @if (!collapsed()) {
+          <div class="sidebar__section-label">MAIN</div>
+        }
 
         @for (item of mainNavItems; track item.route) {
           @if (canSee(item)) {
@@ -48,12 +50,12 @@ interface NavItem {
               class="sidebar__nav-item"
               [routerLink]="item.route"
               routerLinkActive="sidebar__nav-item--active"
-              [matTooltip]="collapsed ? item.label : ''"
+              [matTooltip]="collapsed() ? item.label : ''"
               matTooltipPosition="right"
               [attr.aria-label]="item.label"
             >
               <mat-icon class="sidebar__nav-icon">{{ item.icon }}</mat-icon>
-              @if (!collapsed) {
+              @if (!collapsed()) {
                 <span class="sidebar__nav-label">{{ item.label }}</span>
               }
             </a>
@@ -61,7 +63,9 @@ interface NavItem {
         }
 
         <div class="sidebar__divider"></div>
-        <div class="sidebar__section-label" *ngIf="!collapsed">WORKSPACE</div>
+        @if (!collapsed()) {
+          <div class="sidebar__section-label">WORKSPACE</div>
+        }
 
         @for (item of workspaceNavItems; track item.route) {
           @if (canSee(item)) {
@@ -69,12 +73,12 @@ interface NavItem {
               class="sidebar__nav-item"
               [routerLink]="item.route"
               routerLinkActive="sidebar__nav-item--active"
-              [matTooltip]="collapsed ? item.label : ''"
+              [matTooltip]="collapsed() ? item.label : ''"
               matTooltipPosition="right"
               [attr.aria-label]="item.label"
             >
               <mat-icon class="sidebar__nav-icon">{{ item.icon }}</mat-icon>
-              @if (!collapsed) {
+              @if (!collapsed()) {
                 <span class="sidebar__nav-label">{{ item.label }}</span>
               }
             </a>
@@ -89,39 +93,42 @@ interface NavItem {
             class="sidebar__nav-item"
             [routerLink]="item.route"
             routerLinkActive="sidebar__nav-item--active"
-            [matTooltip]="collapsed ? item.label : ''"
+            [matTooltip]="collapsed() ? item.label : ''"
             matTooltipPosition="right"
             [attr.aria-label]="item.label"
           >
             <mat-icon class="sidebar__nav-icon">{{ item.icon }}</mat-icon>
-            @if (!collapsed) {
+            @if (!collapsed()) {
               <span class="sidebar__nav-label">{{ item.label }}</span>
             }
           </a>
         }
 
-        <div class="sidebar__user" *ngIf="auth.currentUser() as user">
-          <img
-            class="sidebar__user-avatar"
-            [src]="user.avatar"
-            [alt]="user.name"
-            loading="lazy"
-          />
-          @if (!collapsed) {
-            <div class="sidebar__user-info">
-              <span class="sidebar__user-name">{{ user.name }}</span>
-              <span class="sidebar__user-role">{{ user.role | titlecase }}</span>
-            </div>
-          }
-        </div>
+        @if (auth.currentUser(); as user) {
+          <div class="sidebar__user">
+            <img
+              class="sidebar__user-avatar"
+              [src]="user.avatar"
+              [alt]="user.name"
+              loading="lazy"
+            />
+            @if (!collapsed()) {
+              <div class="sidebar__user-info">
+                <span class="sidebar__user-name">{{ user.name }}</span>
+                <span class="sidebar__user-role">{{ user.role | titlecase }}</span>
+              </div>
+            }
+          </div>
+        }
       </div>
     </aside>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  @Input() collapsed = false;
-  @Output() toggleCollapse = new EventEmitter<void>();
+  readonly collapsed = input(false);
+  readonly toggleCollapse = output<void>();
 
   readonly auth = inject(AuthService);
 

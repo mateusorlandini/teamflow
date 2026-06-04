@@ -1,8 +1,24 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
-import { ActivityFeedItem, DashboardMetrics, TaskTrendPoint, TeamProductivityEntry, UpcomingDeadline } from '../../domain/models/dashboard.model';
+import { inject, Injectable } from '@angular/core';
+import { forkJoin, map, Observable } from 'rxjs';
+import {
+  ActivityFeedItem,
+  DashboardMetrics,
+  Task,
+  TaskTrendPoint,
+  TeamProductivityEntry,
+  UpcomingDeadline
+} from '../../domain/models';
 import { environment } from '../../../environments/environment';
+
+/** Shape of the records served by the json-server `/activity` endpoint. */
+interface RawActivity {
+  id: string;
+  userId: string;
+  action: ActivityFeedItem['action'];
+  taskId: string;
+  createdAt: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
@@ -21,13 +37,16 @@ export class DashboardService {
   }
 
   getUpcomingDeadlines(): Observable<UpcomingDeadline[]> {
-    const now = new Date().toISOString();
     return this.http
-      .get<any[]>(`${environment.apiUrl}/tasks`)
+      .get<Task[]>(`${environment.apiUrl}/tasks`)
       .pipe(
         map((tasks) => {
-          const upcoming = tasks
-            .filter((t) => t.dueDate && t.status !== 'done' && t.status !== 'cancelled')
+
+          return tasks
+            .filter(
+              (t): t is Task & { dueDate: string } =>
+                !!t.dueDate && t.status !== 'done' && t.status !== 'cancelled',
+            )
             .map((t) => {
               const due = new Date(t.dueDate);
               const today = new Date();
@@ -44,13 +63,12 @@ export class DashboardService {
             })
             .filter((t) => t.daysUntilDue <= 7)
             .sort((a, b) => a.daysUntilDue - b.daysUntilDue);
-          return upcoming;
         }),
       );
   }
 
   getActivityFeed(): Observable<ActivityFeedItem[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/activity`).pipe(
+    return this.http.get<RawActivity[]>(`${environment.apiUrl}/activity`).pipe(
       map((activities) =>
         activities
           .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,7 @@ import { UserService } from '../../data/services/user.service';
 import { ThemeService } from '../../core/services/theme.service';
 import { ToastService } from '../../core/services/toast.service';
 import { AvatarComponent } from '../../shared/components/avatar/avatar.component';
+import { UserPreferences } from '../../domain/models';
 
 @Component({
   selector: 'tf-profile',
@@ -268,16 +269,16 @@ export class ProfileComponent implements OnInit {
     { key: 'emailDigest', label: 'Email digest', desc: 'Weekly summary via email' },
   ];
 
-  readonly profileForm = this.fb.group({
+  readonly profileForm = this.fb.nonNullable.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     jobTitle: [''],
     department: [''],
   });
 
-  readonly prefsForm = this.fb.group({
-    theme: ['light'],
-    dashboardLayout: ['comfortable'],
+  readonly prefsForm = this.fb.nonNullable.group({
+    theme: this.fb.nonNullable.control<UserPreferences['theme']>('light'),
+    dashboardLayout: this.fb.nonNullable.control<UserPreferences['dashboardLayout']>('comfortable'),
     taskAssigned: [true],
     taskDeadline: [true],
     taskComment: [true],
@@ -312,18 +313,20 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(): void {
     if (this.profileForm.invalid) { this.profileForm.markAllAsTouched(); return; }
+    const userId = this.auth.currentUser()?.id;
+    if (!userId) return;
     this.isSavingProfile = true;
-    const userId = this.auth.currentUser()!.id;
-    this.userService.update(userId, this.profileForm.getRawValue() as any).subscribe({
+    this.userService.update(userId, this.profileForm.getRawValue()).subscribe({
       next: () => { this.toast.success('Profile updated.'); this.isSavingProfile = false; },
       error: () => { this.isSavingProfile = false; },
     });
   }
 
   savePreferences(): void {
+    const userId = this.auth.currentUser()?.id;
+    if (!userId) return;
     this.isSavingPrefs = true;
-    const userId = this.auth.currentUser()!.id;
-    const { theme, dashboardLayout, ...notifications } = this.prefsForm.getRawValue() as any;
+    const { theme, dashboardLayout, ...notifications } = this.prefsForm.getRawValue();
     this.userService.updatePreferences(userId, { theme, dashboardLayout, notifications }).subscribe({
       next: () => { this.toast.success('Preferences saved.'); this.isSavingPrefs = false; },
       error: () => { this.isSavingPrefs = false; },

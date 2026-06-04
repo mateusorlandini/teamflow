@@ -13,14 +13,13 @@ import { TaskService } from '../../../data/services/task.service';
 import { UserService } from '../../../data/services/user.service';
 import { AuthService } from '../../../core/auth/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { Task, TaskActivity, TaskComment } from '../../../domain/models/task.model';
-import { User } from '../../../domain/models/user.model';
+import { Task, TaskActivity, TaskComment, User } from '../../../domain/models';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { PriorityBadgeComponent } from '../../../shared/components/priority-badge/priority-badge.component';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
 import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
 import { RelativeTimePipe } from '../../../shared/pipes/relative-time.pipe';
-import { TASK_STATUS_LABELS } from '../../../domain/enums/task-status.enum';
+import { TASK_STATUS_LABELS } from '../../../domain/enums';
 
 @Component({
   selector: 'tf-task-detail',
@@ -89,14 +88,14 @@ import { TASK_STATUS_LABELS } from '../../../domain/enums/task-status.enum';
                   />
                   <div class="task-checklist__items">
                     @for (item of task()!.checklist; track item.id) {
-                      <div class="checklist-item" (click)="toggleChecklist(item.id)">
+                      <div class="checklist-item">
                         <mat-checkbox
                           [checked]="item.completed"
                           (change)="toggleChecklist(item.id)"
-                          (click)="$event.stopPropagation()"
                           color="primary"
-                        />
-                        <span [class.done]="item.completed">{{ item.text }}</span>
+                        >
+                          <span [class.done]="item.completed">{{ item.text }}</span>
+                        </mat-checkbox>
                       </div>
                     }
                   </div>
@@ -275,7 +274,11 @@ export class TaskDetailComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id');
+    if (!id) {
+      this.router.navigate(['/tasks']);
+      return;
+    }
     this.userService.getAll().subscribe((u) => this.users.set(u));
     this.taskService.getWithDetails(id).subscribe({
       next: ({ task, comments, activity }) => {
@@ -306,11 +309,12 @@ export class TaskDetailComponent implements OnInit {
 
   addComment(): void {
     const content = this.commentCtrl.value?.trim();
-    if (!content) return;
-    const user = this.auth.currentUser()!;
+    const user = this.auth.currentUser();
+    const task = this.task();
+    if (!content || !user || !task) return;
     this.isSavingComment = true;
     this.taskService.addComment({
-      taskId: this.task()!.id,
+      taskId: task.id,
       authorId: user.id,
       content,
       mentions: [],

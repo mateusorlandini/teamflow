@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
-import { CreateTeamPayload, Team, TeamMetrics, UpdateTeamPayload } from '../../domain/models/team.model';
-import { User } from '../../domain/models/user.model';
+import { CreateTeamPayload, Team, TeamMetrics, UpdateTeamPayload } from '../../domain/models';
+import { Task } from '../../domain/models';
+import { User } from '../../domain/models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +28,7 @@ export class TeamService {
 
   getTeamMetrics(teamId: string): Observable<TeamMetrics> {
     return this.http
-      .get<any[]>(`${environment.apiUrl}/tasks?teamId=${teamId}`)
+      .get<Task[]>(`${environment.apiUrl}/tasks?teamId=${teamId}`)
       .pipe(
         map((tasks) => {
           const total = tasks.length;

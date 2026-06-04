@@ -9,10 +9,9 @@ import { ChartConfiguration, ChartData } from 'chart.js';
 import { DashboardService } from '../../data/services/dashboard.service';
 import { UserService } from '../../data/services/user.service';
 import { AuthService } from '../../core/auth/services/auth.service';
-import { DashboardMetrics, TaskTrendPoint, TeamProductivityEntry, UpcomingDeadline } from '../../domain/models/dashboard.model';
+import { DashboardMetrics, TaskTrendPoint, TeamProductivityEntry, UpcomingDeadline, User } from '../../domain/models';
 import { SkeletonComponent } from '../../shared/components/skeleton/skeleton.component';
-import { TASK_PRIORITY_COLORS } from '../../domain/enums/task-priority.enum';
-import { User } from '../../domain/models/user.model';
+import { TaskPriority, TASK_PRIORITY_COLORS } from '../../domain/enums';
 
 @Component({
   selector: 'tf-dashboard',
@@ -259,7 +258,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getPriorityColor(priority: string): string {
-    return (TASK_PRIORITY_COLORS as any)[priority] ?? '#6b7280';
+    return TASK_PRIORITY_COLORS[priority as TaskPriority] ?? '#6b7280';
   }
 
   private buildTrendChart(trend: TaskTrendPoint[]): ChartData<'line'> {

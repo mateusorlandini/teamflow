@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,10 +14,8 @@ import { RouterLink } from '@angular/router';
 import { TaskService } from '../../../data/services/task.service';
 import { UserService } from '../../../data/services/user.service';
 import { ToastService } from '../../../core/services/toast.service';
-import { Task } from '../../../domain/models/task.model';
-import { TaskStatus, TASK_STATUS_LABELS, TASK_STATUS_COLORS } from '../../../domain/enums/task-status.enum';
-import { TaskPriority } from '../../../domain/enums/task-priority.enum';
-import { User } from '../../../domain/models/user.model';
+import { Task, User } from '../../../domain/models';
+import { TaskStatus, TASK_STATUS_LABELS, TASK_STATUS_COLORS, TaskPriority } from '../../../domain/enums';
 import { PriorityBadgeComponent } from '../../../shared/components/priority-badge/priority-badge.component';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
 import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
@@ -224,6 +223,12 @@ export class KanbanBoardComponent implements OnInit {
   readonly priorityCtrl = new FormControl<TaskPriority[]>([]);
   readonly assigneeCtrl = new FormControl<string[]>([]);
 
+  // Bridge the reactive form controls into signals so `filteredColumns` (a
+  // computed) re-evaluates whenever a filter changes, with no manual subscribe.
+  private readonly search = toSignal(this.searchCtrl.valueChanges, { initialValue: '' });
+  private readonly priorities = toSignal(this.priorityCtrl.valueChanges, { initialValue: [] as TaskPriority[] });
+  private readonly assignees = toSignal(this.assigneeCtrl.valueChanges, { initialValue: [] as string[] });
+
   readonly priorityOptions: TaskPriority[] = [
     TaskPriority.Critical, TaskPriority.High, TaskPriority.Medium, TaskPriority.Low,
   ];
@@ -239,18 +244,18 @@ export class KanbanBoardComponent implements OnInit {
   ];
 
   readonly hasFilters = computed(() =>
-    !!(this.searchCtrl.value || this.priorityCtrl.value?.length || this.assigneeCtrl.value?.length)
+    !!(this.search() || this.priorities()?.length || this.assignees()?.length)
   );
 
   readonly filteredColumns = computed((): KanbanColumn[] => {
-    const search = this.searchCtrl.value?.toLowerCase() ?? '';
-    const priorities = this.priorityCtrl.value ?? [];
-    const assignees = this.assigneeCtrl.value ?? [];
+    const search = this.search()?.toLowerCase() ?? '';
+    const priorities = this.priorities() ?? [];
+    const assignees = this.assignees() ?? [];
 
     let tasks = this.allTasks().filter((t) => t.status !== TaskStatus.Cancelled);
     if (search)     tasks = tasks.filter((t) => t.title.toLowerCase().includes(search));
     if (priorities.length) tasks = tasks.filter((t) => priorities.includes(t.priority));
-    if (assignees.length)  tasks = tasks.filter((t) => t.assigneeId != null && assignees.includes(t.assigneeId));
+    if (assignees.length)  tasks = tasks.filter((t) => t.assigneeId !== null && assignees.includes(t.assigneeId));
 
     return this.columnDefs.map((col) => ({
       ...col,
@@ -260,9 +265,6 @@ export class KanbanBoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.searchCtrl.valueChanges.subscribe(() => {});
-    this.priorityCtrl.valueChanges.subscribe(() => {});
-    this.assigneeCtrl.valueChanges.subscribe(() => {});
   }
 
   loadData(): void {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TeamService } from '../../../data/services/team.service';
-import { Team } from '../../../domain/models/team.model';
+import { CreateTeamPayload, Team } from '../../../domain/models';
 
 const AVATAR_COLORS = ['#6366f1','#ec4899','#14b8a6','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#10b981'];
 
@@ -80,18 +80,17 @@ export class TeamFormDialogComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly teamService = inject(TeamService);
   readonly dialogRef = inject(MatDialogRef<TeamFormDialogComponent>);
+  readonly data = inject<{ team: Team | null }>(MAT_DIALOG_DATA);
 
   isSaving = false;
   readonly colors = AVATAR_COLORS;
   get isEdit(): boolean { return !!this.data.team; }
 
-  readonly form = this.fb.group({
+  readonly form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     description: [''],
     avatarColor: [AVATAR_COLORS[0], Validators.required],
   });
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { team: Team | null }) {}
 
   ngOnInit(): void {
     if (this.data.team) {
@@ -107,9 +106,22 @@ export class TeamFormDialogComponent implements OnInit {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
     this.isSaving = true;
     const v = this.form.getRawValue();
-    const op$ = this.isEdit
-      ? this.teamService.update(this.data.team!.id, v as any)
-      : this.teamService.create({ ...v, ownerId: '', memberIds: [], isArchived: false, settings: { allowMembersToCreateTasks: true, allowMembersToInvite: false, defaultTaskStatus: 'todo', taskLabelIds: [] } } as any);
+    const existing = this.data.team;
+    const createPayload: CreateTeamPayload = {
+      ...v,
+      ownerId: '',
+      memberIds: [],
+      isArchived: false,
+      settings: {
+        allowMembersToCreateTasks: true,
+        allowMembersToInvite: false,
+        defaultTaskStatus: 'todo',
+        taskLabelIds: [],
+      },
+    };
+    const op$ = existing
+      ? this.teamService.update(existing.id, v)
+      : this.teamService.create(createPayload);
 
     op$.subscribe({
       next: () => this.dialogRef.close(true),

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { Notification } from '../../domain/models/notification.model';
+import { Notification } from '../../domain/models';
 import { AuthService } from '../auth/services/auth.service';
 import { environment } from '../../../environments/environment';
 

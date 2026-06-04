@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
-import { CreateTaskPayload, Task, TaskActivity, TaskComment, TaskFilters, TaskLabel, UpdateTaskPayload } from '../../domain/models/task.model';
+import { CreateTaskPayload, Task, TaskActivity, TaskComment, TaskFilters, TaskLabel, UpdateTaskPayload } from '../../domain/models';
+import { TaskStatus } from '../../domain/enums';
 import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -76,8 +77,8 @@ export class TaskService {
     });
   }
 
-  updateStatus(id: string, status: string): Observable<Task> {
-    return this.update(id, { status: status as any });
+  updateStatus(id: string, status: TaskStatus): Observable<Task> {
+    return this.update(id, { status });
   }
 
   delete(id: string): Observable<void> {

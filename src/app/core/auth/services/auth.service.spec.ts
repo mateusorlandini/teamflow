@@ -3,7 +3,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { AuthService } from './auth.service';
-import { UserRole } from '../../../domain/enums/user-role.enum';
+import { UserRole } from '../../../domain/enums';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -13,6 +13,7 @@ describe('AuthService', () => {
     id: 'u1',
     name: 'Admin User',
     email: 'admin@teamflow.io',
+    password: 'admin123',
     role: UserRole.Admin,
     avatar: 'https://example.com/avatar.jpg',
     teamIds: ['t1'],
@@ -57,6 +58,7 @@ describe('AuthService', () => {
     it('should restore session from localStorage if token exists', () => {
       localStorage.setItem('tf_access_token', 'test-token');
       localStorage.setItem('tf_user', JSON.stringify(mockUser));
+      localStorage.setItem('tf_expires_at', String(Date.now() + 86_400_000));
       const freshService = TestBed.runInInjectionContext(() => new AuthService());
       expect(freshService.isAuthenticated()).toBe(true);
       expect(freshService.currentUser()?.email).toBe('admin@teamflow.io');
@@ -68,9 +70,7 @@ describe('AuthService', () => {
       const loginPromise = lastValueFrom(
         service.login({ email: 'admin@teamflow.io', password: 'admin123' }),
       );
-      const req = httpMock.expectOne(
-        (r) => r.url.includes('/users') && r.url.includes('email=admin@teamflow.io'),
-      );
+      const req = httpMock.expectOne((r) => r.url.includes('/users'));
       req.flush([mockUser]);
       const response = await loginPromise;
       expect(response.email).toBe('admin@teamflow.io');
